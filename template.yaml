@@ -13,7 +13,17 @@ Resources:
               awslogs-region: !Ref AWS::Region
               awslogs-stream-prefix: hello-world
           Name: 0
-          Environment: []
+          Environment:
+            - Name: AWS_REGION
+              Value: us-west-2
+            - Name: INPUT_VIDEO_FILE_URL
+              Value: https://s3.amazonaws.com/your-s3-bucket-name/test.mp4
+            - Name: OUTPUT_S3_PATH
+              Value: your-s3-bucket-name/your-thumbnail-folder-name
+            - Name: OUTPUT_THUMBS_FILE_NAME
+              Value: test.png
+            - Name: POSITION_TIME_DURATION
+              Value: 00:01
       Cpu: 1024
       ExecutionRoleArn: !GetAtt VideoToThumbExecutionRole.Arn
       Memory: 2048
