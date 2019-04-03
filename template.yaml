@@ -90,14 +90,14 @@ Resources:
       BucketName: !Sub ${AWS::StackName}-thumbnails
     Metadata:
       StackeryName: rg-stackery-thumbnails
-  onUploadVideo:
+  onUploadVideoStackery:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${AWS::StackName}-onUploadVideo
+      FunctionName: !Sub ${AWS::StackName}-onUploadVideoStackery
       Description: !Sub
         - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
         - ResourceName: triggerOnUploadVideoStackery
-      CodeUri: src/onUploadVideo
+      CodeUri: src/onUploadVideoStackery
       Handler: index.handler
       Runtime: nodejs8.10
       MemorySize: 3008
@@ -107,14 +107,14 @@ Resources:
         - AWSXrayWriteOnlyAccess
     Metadata:
       StackeryName: triggerOnUploadVideoStackery
-  onThumbnail:
+  onThumbnailCreationStackery:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub ${AWS::StackName}-onThumbnail
+      FunctionName: !Sub ${AWS::StackName}-onThumbnailCreationStac
       Description: !Sub
         - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
         - ResourceName: triggerOnThumbnailCreationStackery
-      CodeUri: src/onThumbnail
+      CodeUri: src/onThumbnailCreationStackery
       Handler: index.handler
       Runtime: nodejs8.10
       MemorySize: 3008
