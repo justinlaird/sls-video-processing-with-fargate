@@ -5,14 +5,14 @@ Resources:
     Type: AWS::ECS::TaskDefinition
     Properties:
       ContainerDefinitions:
-        - Image: hello-world
+        - Image: rupakg/docker-ffmpeg-thumb:latest
           LogConfiguration:
             LogDriver: awslogs
             Options:
               awslogs-group: !Ref VideoToThumbLogGroup
               awslogs-region: !Ref AWS::Region
-              awslogs-stream-prefix: hello-world
-          Name: 0
+              awslogs-stream-prefix: rupakg-docker-ffmpeg-thumb
+          Name: video-to-thumb-container
           Environment:
             - Name: AWS_REGION
               Value: us-west-2
@@ -77,7 +77,7 @@ Resources:
   VideoToThumbLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
-      LogGroupName: !Sub /stackery/task/${AWS::StackName}-VideoToThumb/hello-world
+      LogGroupName: !Sub /stackery/task/${AWS::StackName}-VideoToThumb/rupakg-docker-ffmpeg-thumb
   VideoFiles:
     Type: AWS::S3::Bucket
     Properties:
