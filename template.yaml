@@ -68,3 +68,39 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub /stackery/task/${AWS::StackName}-VideoToThumb/hello-world
+  VideoFiles:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub ${AWS::StackName}-videofiles
+    Metadata:
+      StackeryName: rg-stackery-video-files
+  Thumbnails:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub ${AWS::StackName}-thumbnails
+    Metadata:
+      StackeryName: rg-stackery-thumbnails
+  onUploadVideo:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-onUploadVideo
+      Description: !Sub
+        - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
+        - ResourceName: triggerOnUploadVideoStackery
+      CodeUri: src/onUploadVideo
+      Handler: index.handler
+      Runtime: nodejs8.10
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Policies:
+        - AWSXrayWriteOnlyAccess
+    Metadata:
+      StackeryName: triggerOnUploadVideoStackery
+Parameters:
+  StackTagName:
+    Type: String
+    Description: Stack Name (injected by Stackery at deployment time)
+  EnvironmentTagName:
+    Type: String
+    Description: Environment Name (injected by Stackery at deployment time)
