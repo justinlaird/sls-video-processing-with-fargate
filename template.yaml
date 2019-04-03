@@ -97,6 +97,23 @@ Resources:
         - AWSXrayWriteOnlyAccess
     Metadata:
       StackeryName: triggerOnUploadVideoStackery
+  onThumbnail:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-onThumbnail
+      Description: !Sub
+        - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
+        - ResourceName: triggerOnThumbnailCreationStackery
+      CodeUri: src/onThumbnail
+      Handler: index.handler
+      Runtime: nodejs8.10
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Policies:
+        - AWSXrayWriteOnlyAccess
+    Metadata:
+      StackeryName: triggerOnThumbnailCreationStackery
 Parameters:
   StackTagName:
     Type: String
