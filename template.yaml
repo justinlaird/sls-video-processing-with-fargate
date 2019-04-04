@@ -165,9 +165,9 @@ Resources:
                 - !GetAtt VideoToThumbExecutionRole.Arn
                 - !GetAtt VideoToThumbTaskRole.Arn
         - S3CrudPolicy:
-            BucketName: !Ref Thumbnails
+            BucketName: !Sub ${AWS::StackName}-thumbnails
         - S3CrudPolicy:
-            BucketName: !Ref VideoFiles
+            BucketName: !Sub ${AWS::StackName}-videofiles
       Events:
         VideoFiles:
           Type: S3
@@ -182,10 +182,8 @@ Resources:
           DOCKER_TASK_SUBNETS: !Join
             - ','
             - !Ref DefaultVPCSubnets
-          BUCKET_NAME: !Ref Thumbnails
-          BUCKET_ARN: !GetAtt Thumbnails.Arn
-          BUCKET_NAME_2: !Ref VideoFiles
-          BUCKET_ARN_2: !GetAtt VideoFiles.Arn
+          BUCKET_NAME: !Sub ${AWS::StackName}-thumbnails
+          BUCKET_NAME_2: !Sub ${AWS::StackName}-videofiles
     Metadata:
       StackeryName: triggerOnUploadVideoStackery
   onThumbnailCreationStackery:
