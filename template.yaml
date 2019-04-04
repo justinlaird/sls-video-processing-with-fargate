@@ -143,6 +143,8 @@ Resources:
               Resource:
                 - !GetAtt VideoToThumbExecutionRole.Arn
                 - !GetAtt VideoToThumbTaskRole.Arn
+        - S3CrudPolicy:
+            BucketName: !Ref Thumbnails
       Events:
         VideoFiles:
           Type: S3
@@ -157,6 +159,8 @@ Resources:
           DOCKER_TASK_SUBNETS: !Join
             - ','
             - !Ref DefaultVPCSubnets
+          BUCKET_NAME: !Ref Thumbnails
+          BUCKET_ARN: !GetAtt Thumbnails.Arn
     Metadata:
       StackeryName: triggerOnUploadVideoStackery
   onThumbnailCreationStackery:
