@@ -28,6 +28,10 @@ Resources:
               Value: !Ref Thumbnails
             - Name: BUCKET_ARN
               Value: !GetAtt Thumbnails.Arn
+            - Name: BUCKET_NAME_2
+              Value: !Ref VideoFiles
+            - Name: BUCKET_ARN_2
+              Value: !GetAtt VideoFiles.Arn
       Cpu: 1024
       ExecutionRoleArn: !GetAtt VideoToThumbExecutionRole.Arn
       Memory: 2048
@@ -96,6 +100,23 @@ Resources:
                 Resource:
                   - !Sub arn:${AWS::Partition}:s3:::${Thumbnails}
                   - !Sub arn:${AWS::Partition}:s3:::${Thumbnails}/*
+        - PolicyName: AccessVideoFiles
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:ListBucket
+                  - s3:GetBucketLocation
+                  - s3:GetObjectVersion
+                  - s3:PutObject
+                  - s3:PutObjectAcl
+                  - s3:GetLifecycleConfiguration
+                  - s3:PutLifecycleConfiguration
+                Resource:
+                  - !Sub arn:${AWS::Partition}:s3:::${VideoFiles}
+                  - !Sub arn:${AWS::Partition}:s3:::${VideoFiles}/*
   VideoToThumbLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
