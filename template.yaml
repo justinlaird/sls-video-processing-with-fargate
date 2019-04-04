@@ -105,6 +105,22 @@ Resources:
       Tracing: Active
       Policies:
         - AWSXrayWriteOnlyAccess
+        - Statement:
+            - Effect: Allow
+              Action:
+                - ecs:RunTask
+                - ecs:DescribeTasks
+                - ecs:StopTask
+              Resource:
+                - !Ref VideoToThumb
+                - !Sub arn:aws:ecs:${AWS::Region}:${AWS::AccountId}:task/*
+        - Statement:
+            - Effect: Allow
+              Action:
+                - iam:PassRole
+              Resource:
+                - !GetAtt VideoToThumbExecutionRole.Arn
+                - !GetAtt VideoToThumbTaskRole.Arn
       Events:
         VideoFiles:
           Type: S3
@@ -113,6 +129,12 @@ Resources:
             Events:
               - s3:ObjectCreated:*
               - s3:ObjectRemoved:*
+      Environment:
+        Variables:
+          DOCKER_TASK_ARN: !Ref VideoToThumb
+          DOCKER_TASK_SUBNETS: !Join
+            - ','
+            - !Ref DefaultVPCSubnets
     Metadata:
       StackeryName: triggerOnUploadVideoStackery
   onThumbnailCreationStackery:
@@ -147,3 +169,6 @@ Parameters:
   EnvironmentTagName:
     Type: String
     Description: Environment Name (injected by Stackery at deployment time)
+  DefaultVPCSubnets:
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: AWS account-specific default VPC subnets (injected by Stackery at deployment time)
