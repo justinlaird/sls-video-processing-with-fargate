@@ -24,6 +24,10 @@ Resources:
               Value: test.png
             - Name: POSITION_TIME_DURATION
               Value: 00:01
+            - Name: BUCKET_NAME
+              Value: !Ref Thumbnails
+            - Name: BUCKET_ARN
+              Value: !GetAtt Thumbnails.Arn
       Cpu: 1024
       ExecutionRoleArn: !GetAtt VideoToThumbExecutionRole.Arn
       Memory: 2048
@@ -74,6 +78,24 @@ Resources:
           Principal:
             Service: ecs-tasks.amazonaws.com
           Action: sts:AssumeRole
+      Policies:
+        - PolicyName: AccessThumbnails
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:ListBucket
+                  - s3:GetBucketLocation
+                  - s3:GetObjectVersion
+                  - s3:PutObject
+                  - s3:PutObjectAcl
+                  - s3:GetLifecycleConfiguration
+                  - s3:PutLifecycleConfiguration
+                Resource:
+                  - !Sub arn:${AWS::Partition}:s3:::${Thumbnails}
+                  - !Sub arn:${AWS::Partition}:s3:::${Thumbnails}/*
   VideoToThumbLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
