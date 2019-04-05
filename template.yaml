@@ -5,13 +5,13 @@ Resources:
     Type: AWS::ECS::TaskDefinition
     Properties:
       ContainerDefinitions:
-        - Image: docker-ffmpeg-thumb:latest
+        - Image: 'docker-ffmpeg-thumb#latest'
           LogConfiguration:
             LogDriver: awslogs
             Options:
               awslogs-group: !Ref VideoToThumbLogGroup
               awslogs-region: !Ref AWS::Region
-              awslogs-stream-prefix: rupakg-docker-ffmpeg-thumb
+              awslogs-stream-prefix: docker-ffmpeg-thumb-latest
           Name: video-to-thumb-container
           Environment:
             - Name: AWS_REGION
@@ -99,7 +99,7 @@ Resources:
   VideoToThumbLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
-      LogGroupName: !Sub /stackery/task/${AWS::StackName}-VideoToThumb/rupakg-docker-ffmpeg-thumb
+      LogGroupName: !Sub /stackery/task/${AWS::StackName}-VideoToThumb/docker-ffmpeg-thumb-latest
   VideoFiles:
     Type: AWS::S3::Bucket
     Properties:
