@@ -5,7 +5,7 @@ Resources:
     Type: AWS::ECS::TaskDefinition
     Properties:
       ContainerDefinitions:
-        - Image: 'docker-ffmpeg-thumb#latest'
+        - Image: 'docker-ffmpeg-thumb'
           LogConfiguration:
             LogDriver: awslogs
             Options:
