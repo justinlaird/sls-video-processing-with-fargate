@@ -26,7 +26,7 @@ module.exports.handler = function handler(event, context, callback) {
 
     // parse the file processing details
     // example video file: test_00-08.mp4
-    const s3_video_url = `https://s3.amazonaws.com/${bucket}/${key}`;
+    const s3_video_url = `https://s3-${OUTPUT_S3_AWS_REGION}.amazonaws.com/${bucket}/${key}`;
     const thumbnail_file = key.substring(0, key.indexOf('_')) + '.png';
     const frame_pos = key.substring(key.indexOf('_') + 1, key.indexOf('.')).replace('-', ':');
     console.log(`Processing file '${s3_video_url}' to extract frame from position '${frame_pos}' to generate thumbnail '${thumbnail_file}'.`);
