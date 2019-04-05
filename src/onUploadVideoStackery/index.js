@@ -6,7 +6,7 @@ const INPUT_BUCKET_NAME = process.env.BUCKET_NAME_2;
 const OUTPUT_BUCKET_NAME = process.env.BUCKET_NAME;
 const ECS_CLUSTER_NAME = process.env.ECS_CLUSTER_NAME || 'default';
 const OUTPUT_S3_PATH = OUTPUT_BUCKET_NAME;
-const OUTPUT_S3_AWS_REGION = process.env.OUTPUT_S3_AWS_REGION || 'us-east-1';
+const OUTPUT_S3_AWS_REGION = process.env.OUTPUT_S3_AWS_REGION || 'us-west-2';
 
 // Docker ARN format - arn:aws:ecs:us-east-1:account-id:task-definition/taskName:version
 const temp = DOCKER_TASK_ARN.split(':');
