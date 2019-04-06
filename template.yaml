@@ -104,14 +104,14 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub ${AWS::StackName}-videofiles
-      AccessControl: PublicReadWrite
+      AccessControl: PublicRead
     Metadata:
       StackeryName: rg-stackery-video-files
   Thumbnails:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub ${AWS::StackName}-thumbnails
-      AccessControl: PublicReadWrite
+      AccessControl: PublicRead
     Metadata:
       StackeryName: rg-stackery-thumbnails
   onUploadVideoStackery:
@@ -202,7 +202,7 @@ Resources:
             Resource: !Join
               - ''
               - - 'arn:aws:s3:::'
-                - !Ref Thumbnails
+                - Ref Thumbnails
                 - /*
             Principal: '*'
 Parameters:
