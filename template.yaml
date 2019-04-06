@@ -104,7 +104,7 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub ${AWS::StackName}-videofiles
-      AccessControl: PublicRead
+      AccessControl: PublicReadWrite
     Metadata:
       StackeryName: rg-stackery-video-files
   Thumbnails:
