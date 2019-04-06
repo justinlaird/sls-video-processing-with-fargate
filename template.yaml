@@ -199,11 +199,12 @@ Resources:
           - Action:
               - s3:GetObject
             Effect: Allow
-            Resource: !Join
-              - ''
-              - - 'arn:aws:s3:::'
-                - Ref Thumbnails
-                - /*
+            Resource:
+              Fn:Join:
+                - ''
+                - - 'arn:aws:s3:::'
+                  - Ref Thumbnails
+                  - /*
             Principal: '*'
 Parameters:
   StackTagName:
