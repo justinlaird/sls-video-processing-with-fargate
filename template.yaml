@@ -204,7 +204,7 @@ Resources:
               Fn:Join:
                 - ""
                 - 
-                  - "arn:aws:s3:::""
+                  - "arn:aws:s3:::"
                   - 
                     Ref: "Thumbnails"
                   - /*
