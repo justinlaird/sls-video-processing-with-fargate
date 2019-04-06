@@ -196,18 +196,14 @@ Resources:
       Bucket: !Ref Thumbnails
       PolicyDocument:
         Statement:
-          - 
-            Action:
+          - Action:
               - s3:GetObject
             Effect: Allow
-            Resource:
-              Fn:Join:
-                - ""
-                - 
-                  - "arn:aws:s3:::"
-                  - 
-                    Ref: "Thumbnails"
-                  - /*
+            Resource: !Join
+              - ''
+              - - 'arn:aws:s3:::'
+                - !Ref Thumbnails
+                - /*
             Principal: '*'
 Parameters:
   StackTagName:
