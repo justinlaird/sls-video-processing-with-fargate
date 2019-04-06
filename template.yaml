@@ -206,7 +206,7 @@ Resources:
   videoOutputBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: !Ref Thumbnails
+      Bucket: !Ref VideoFiles
       PolicyDocument:
         Statement:
           - Action:
